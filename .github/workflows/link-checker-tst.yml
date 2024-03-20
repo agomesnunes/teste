@@ -33,7 +33,8 @@ jobs:
   check-links:
 #This line defines a job with the ID check-links that is stored within the jobs key.
 
-    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    #runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    runs-on: "ubuntu-latest"
 #The runs-on key in this example configures the job to run on a GitHub-hosted runner or a self-hosted runner, depending on the repository running the workflow.
 
 #In this example, the job will run on a self-hosted runner if the repository is named docs-internal and is within the github organization. If the repository doesn't match this path, then it will run on an ubuntu-latest runner hosted by GitHub. For more information on these options, see "Escolhendo o executor para um trabalho."
