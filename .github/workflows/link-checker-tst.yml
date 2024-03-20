@@ -1,42 +1,42 @@
 name: 'Link Checker: All English'
-Isso define o nome do fluxo de trabalho, conforme ele será exibido na guia "Ações" do repositório do GitHub repository.
+#Isso define o nome do fluxo de trabalho, conforme ele será exibido na guia "Ações" do repositório do GitHub repository.
 
 on:
-The on key lets you define the events that trigger when the workflow is run. You can define multiple events here. For more information, see "Acionando um fluxo de trabalho."
+#The on key lets you define the events that trigger when the workflow is run. You can define multiple events here. For more information, see "Acionando um fluxo de trabalho."
 
   workflow_dispatch:
-Add the workflow_dispatch event if you want to be able to manually run this workflow from the UI. For more information, see workflow_dispatch.
+#Add the workflow_dispatch event if you want to be able to manually run this workflow from the UI. For more information, see workflow_dispatch.
 
   push:
     branches:
       - main
-Add the push event, so that the workflow runs automatically every time a commit is pushed to a branch called main. For more information, see push.
+#Add the push event, so that the workflow runs automatically every time a commit is pushed to a branch called main. For more information, see push.
 
   pull_request:
-Add the pull_request event, so that the workflow runs automatically every time a pull request is created or updated. For more information, see pull_request.
+#Add the pull_request event, so that the workflow runs automatically every time a pull request is created or updated. For more information, see pull_request.
 
 permissions:
   contents: read
   pull-requests: read
-This modifies the default permissions granted to GITHUB_TOKEN. This will vary depending on the needs of your workflow. For more information, see "Atribuindo permissões aos trabalhos."
+#This modifies the default permissions granted to GITHUB_TOKEN. This will vary depending on the needs of your workflow. For more information, see "Atribuindo permissões aos trabalhos."
 
 In this example, the pull-requests: read permission is needed for the trilom/file-changes-action action that is used later in this workflow.
 
 concurrency:
   group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
   cancel-in-progress: true
-The concurrency key ensures that only a single workflow in the same concurrency group will run at the same time. For more information, see "Usando simultaneidade." concurrency.group generates a concurrency group name from the workflow name and pull request information. The || operator is used to define fallback values. concurrency.cancel-in-progress cancels any currently running job or workflow in the same concurrency group.
+#The concurrency key ensures that only a single workflow in the same concurrency group will run at the same time. For more information, see "Usando simultaneidade." concurrency.group generates a concurrency group name from the workflow name and pull request information. The || operator is used to define fallback values. concurrency.cancel-in-progress cancels any currently running job or workflow in the same concurrency group.
 
 jobs:
-The jobs key groups together all the jobs that run in the workflow file.
+#The jobs key groups together all the jobs that run in the workflow file.
 
   check-links:
-This line defines a job with the ID check-links that is stored within the jobs key.
+#This line defines a job with the ID check-links that is stored within the jobs key.
 
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
-The runs-on key in this example configures the job to run on a GitHub-hosted runner or a self-hosted runner, depending on the repository running the workflow.
+#The runs-on key in this example configures the job to run on a GitHub-hosted runner or a self-hosted runner, depending on the repository running the workflow.
 
-In this example, the job will run on a self-hosted runner if the repository is named docs-internal and is within the github organization. If the repository doesn't match this path, then it will run on an ubuntu-latest runner hosted by GitHub. For more information on these options, see "Escolhendo o executor para um trabalho."
+#In this example, the job will run on a self-hosted runner if the repository is named docs-internal and is within the github organization. If the repository doesn't match this path, then it will run on an ubuntu-latest runner hosted by GitHub. For more information on these options, see "Escolhendo o executor para um trabalho."
 
     steps:
 The steps key groups together all the steps that will run as part of the check-links job. Each job in a workflow has its own steps section.
