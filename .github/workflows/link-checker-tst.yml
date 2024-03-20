@@ -39,34 +39,34 @@ jobs:
 #In this example, the job will run on a self-hosted runner if the repository is named docs-internal and is within the github organization. If the repository doesn't match this path, then it will run on an ubuntu-latest runner hosted by GitHub. For more information on these options, see "Escolhendo o executor para um trabalho."
 
     steps:
-The steps key groups together all the steps that will run as part of the check-links job. Each job in a workflow has its own steps section.
+#The steps key groups together all the steps that will run as part of the check-links job. Each job in a workflow has its own steps section.
 
       - name: Checkout
         uses: actions/checkout@v4
-The uses key tells the job to retrieve the action named actions/checkout. This is an action that checks out your repository and downloads it to the runner, allowing you to run actions against your code (such as testing tools). You must use the checkout action any time your workflow will use the repository's code or you are using an action defined in the repository.
+#The uses key tells the job to retrieve the action named actions/checkout. This is an action that checks out your repository and downloads it to the runner, allowing you to run actions against your code (such as testing tools). You must use the checkout action any time your workflow will use the repository's code or you are using an action defined in the repository.
 
       - name: Setup node
         uses: actions/setup-node@v4
         with:
           node-version: 16.13.x
           cache: npm
-This step uses the actions/setup-node action to install the specified version of the Node.js software package on the runner, which gives you access to the npm command.
+#This step uses the actions/setup-node action to install the specified version of the Node.js software package on the runner, which gives you access to the npm command.
 
       - name: Install
         run: npm ci
-The run key tells the job to execute a command on the runner. In this example, npm ci is used to install the npm software packages for the project.
+#The run key tells the job to execute a command on the runner. In this example, npm ci is used to install the npm software packages for the project.
 
       - name: Gather files changed
         uses: trilom/file-changes-action@a6ca26c14274c33b15e6499323aac178af06ad4b
         with:
           fileOutput: 'json'
-This step uses the trilom/file-changes-action action to gather all the changed files. This example is pinned to a specific version of the action, using the a6ca26c14274c33b15e6499323aac178af06ad4b SHA.
+#This step uses the trilom/file-changes-action action to gather all the changed files. This example is pinned to a specific version of the action, using the a6ca26c14274c33b15e6499323aac178af06ad4b SHA.
 
-In this example, this step creates the file "${{ env.HOME }}/files.json", among others.
+#In this example, this step creates the file "${{ env.HOME }}/files.json", among others.
 
       - name: Show files changed
         run: cat $HOME/files.json
-To help with verification, this step lists the contents of files.json. This will be visible in the workflow run's log, and can be useful for debugging.
+#To help with verification, this step lists the contents of files.json. This will be visible in the workflow run's log, and can be useful for debugging.
 
       - name: Link check (warnings, changed files)
         run: |
@@ -77,7 +77,7 @@ To help with verification, this step lists the contents of files.json. This will
             --check-images \
             --verbose \
             --list $HOME/files.json
-This step uses the run command to execute a script that is stored in the repository at script/rendered-content-link-checker.mjs and passes all the parameters it needs to run.
+#This step uses the run command to execute a script that is stored in the repository at script/rendered-content-link-checker.mjs and passes all the parameters it needs to run.
 
       - name: Link check (critical, all files)
         run: |
