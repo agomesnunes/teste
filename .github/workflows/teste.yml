@@ -6,6 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
+        run:
+          echo $ {{ job }}
+          echo $ {{ job.container }}
+          echo $ {{ job.container.id }}
+          echo $ {{ job.container.network }}
+    
+      - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
