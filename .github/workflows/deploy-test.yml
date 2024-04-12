@@ -1,4 +1,4 @@
-name: Deploy Environment Test - ${{ inputs.environment }}
+name: Deploy Environment Test
 run-name: Environment - ${{ inputs.environment }}
 on:
 #  push:
