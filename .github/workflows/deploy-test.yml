@@ -1,0 +1,55 @@
+name: Deploy Environment Test
+run-name: Environment - ${{ inputs.environment }}
+on:
+#  push:
+  workflow_dispatch:
+   inputs:
+      environment:
+        required: true
+        type: choice
+        description: Select a environment to use to deploy
+        options:
+        - dragon-fruit-dev
+        - banana-dev
+        - potato-dev
+        - tomato-dev
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: ${{ inputs.environment }}
+        run: env | sort
+#    uses: cliquefarma/cliquefarma-gha/.github/workflows/build-image-to-ecr.yaml@v0.0.6
+#    with:
+#      aws-creds-role-to-assume: arn:aws:iam::876262563750:role/github-actions-org-cliquefarma
+#      aws-region: us-east-1
+#      docker-build-target: cliquefarma-site
+#      docker-file-path: Dockerfile.staging
+#      docker-tag: ${{ github.sha }}
+#      ecr-url: 876262563750.dkr.ecr.us-east-1.amazonaws.com
+#      ecr-repo: cliquefarma-development-site
+
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: ${{ inputs.environment }}
+        run: env | sort
+#    uses: cliquefarma/cliquefarma-gha/.github/workflows/deploy-argocd.yaml@master
+#    with:
+#      application-name: site-banana
+#      argocd-destination-cluster: https://A74C8820BACF1CF9D05BDB54B81B4A57.gr7.us-east-1.eks.amazonaws.com
+#      argocd-server-url: argocd.tools.cliquefarma.com.br
+#      argocd-project: cliquefarma-development-apps
+#      chart-path: chart
+#      environment: banana-dev
+#      git-runner-container: deviclinic/ci-argocd:2.3.4
+#      image-tag: ${{ github.sha }}
+#      namespace: cliquefarma-banana-site
+#      revision: ${{ github.sha }}
+#     repository-name: cliquefarma/cliquefarma
+#   secrets:
+#     ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_AUTH_TOKEN_DEVELOPMENT_US_EAST_1 }}
