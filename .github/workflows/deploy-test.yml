@@ -19,8 +19,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: ${{ inputs.environment }}
-        run: env | sort
+      - name: Build do ambiente ${{ inputs.environment }}
+        run: | 
+          env | sort
+          echo ${{ inputs.environment }}
 #    uses: cliquefarma/cliquefarma-gha/.github/workflows/build-image-to-ecr.yaml@v0.0.6
 #    with:
 #      aws-creds-role-to-assume: arn:aws:iam::876262563750:role/github-actions-org-cliquefarma
